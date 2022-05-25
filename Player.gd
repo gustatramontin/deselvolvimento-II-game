@@ -51,7 +51,12 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	velocity.x = lerp(velocity.x, 0 , 0.2)
+	
+	if Input.is_action_pressed("shoot") and $ShootRay.is_colliding():
+		shoot()
 
+func shoot():
+	$ShootRay.get_collider().take_damage()
 
 func _on_DashTimer_timeout():
 	can_dash = true
