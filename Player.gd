@@ -9,7 +9,7 @@ export var speed = 100
 export var gravity = 300
 var velocity = Vector2()
 export var jump_force = 400
-var moving = false
+var hitted = false
 var dash = false
 var can_dash = true
 var can_shoot = true
@@ -48,8 +48,9 @@ func _physics_process(delta):
 		move_and_slide(velocity * 50, Vector2.UP)
 		dash = false
 		$DashTimer.start()
-		
-	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if !hitted:
+		velocity = move_and_slide(velocity, Vector2.UP)
 	
 	velocity.x = lerp(velocity.x, 0 , 0.2)
 	
@@ -57,6 +58,10 @@ func _physics_process(delta):
 		shoot()
 		can_shoot = false
 		$ShootTimer.start()
+		
+func take_damage():
+	hitted = true
+	$DamageTimer.start()
 
 func shoot():
 	$ShootRay.get_collider().take_damage()
@@ -67,3 +72,7 @@ func _on_DashTimer_timeout():
 
 func _on_ShootTimer_timeout():
 	can_shoot = true
+
+
+func _on_DamageTimer_timeout():
+	hitted = false
