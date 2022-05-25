@@ -12,6 +12,7 @@ export var jump_force = 400
 var moving = false
 var dash = false
 var can_dash = true
+var can_shoot = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -52,11 +53,17 @@ func _physics_process(delta):
 	
 	velocity.x = lerp(velocity.x, 0 , 0.2)
 	
-	if Input.is_action_pressed("shoot") and $ShootRay.is_colliding():
+	if Input.is_action_pressed("shoot") and $ShootRay.is_colliding() and can_shoot:
 		shoot()
+		can_shoot = false
+		$ShootTimer.start()
 
 func shoot():
 	$ShootRay.get_collider().take_damage()
 
 func _on_DashTimer_timeout():
 	can_dash = true
+
+
+func _on_ShootTimer_timeout():
+	can_shoot = true
