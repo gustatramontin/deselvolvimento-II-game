@@ -6,7 +6,7 @@ extends KinematicBody2D
 # var b = "text"
 
 var life = 100
-var speed = 50
+var speed = 15
 var velocity = Vector2(0,0)
 var can_hit = true
 onready var player = get_node("../Player")
@@ -14,9 +14,9 @@ onready var player = get_node("../Player")
 func _ready():
 	pass # Replace with function body.
 
-func take_damage():
+func take_damage(amount):
 	print("hit")
-	life -= 20
+	life -= amount
 	if life <= 0:
 		queue_free()
 func _physics_process(delta):
@@ -29,10 +29,10 @@ func _physics_process(delta):
 		$HitTimer.start()
 		can_hit = false
 		
+	$LifeBar.value = life
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
 
 func _on_HitTimer_timeout():
 	can_hit = true

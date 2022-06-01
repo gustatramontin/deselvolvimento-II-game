@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex"
+path="res://.import/Meio_Inferior.png-1e9dd812f49652cc669d8378494dfdde.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy.bmp"
-dest_files=[ "res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex" ]
+source_file="res://assets/Meio_Inferior.png"
+dest_files=[ "res://.import/Meio_Inferior.png-1e9dd812f49652cc669d8378494dfdde.stex" ]
 
 [params]
 

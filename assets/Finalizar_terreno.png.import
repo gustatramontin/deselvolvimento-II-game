@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex"
+path="res://.import/Finalizar_terreno.png-cad1b005bf1f2c01deac6b31c26a1d73.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy.bmp"
-dest_files=[ "res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex" ]
+source_file="res://assets/Finalizar_terreno.png"
+dest_files=[ "res://.import/Finalizar_terreno.png-cad1b005bf1f2c01deac6b31c26a1d73.stex" ]
 
 [params]
 

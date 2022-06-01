@@ -6,13 +6,15 @@ extends KinematicBody2D
 # var b = "text"
 
 export var speed = 100
+export var acceleration = 10
 export var gravity = 300
 var velocity = Vector2()
-export var jump_force = 400
+export var jump_force = 1
 var hitted = false
 var dash = false
 var can_dash = true
 var can_shoot = true
+var direction = Vector2(1,1)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,12 +30,18 @@ func acelleration(begin_speed, final_speed, frames):
 
 func _physics_process(delta):
 	
+	velocity.x = clamp(velocity.x,-speed, speed)
 	if Input.is_action_pressed("move_right"):
-		velocity.x = speed
-
+		velocity.x += acceleration
+		direction.x = 1		
 	elif Input.is_action_pressed("move_left"):
-		velocity.x = -speed
+		velocity.x -= acceleration
+		direction.x = -1
+	else:
+		velocity.x = lerp(velocity.x, 0, 0.2)
 	
+	$AnimatedSprite.flip_h = true if direction.x == -1 else false
+	$ShootRay.cast_to.x = abs($ShootRay.cast_to.x) * direction.x
 	velocity.y += gravity
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -54,6 +62,10 @@ func _physics_process(delta):
 	
 	velocity.x = lerp(velocity.x, 0 , 0.2)
 	
+	if Input.is_action_pressed("shoot"):
+		$AnimatedSprite.play("shoot")
+	else: 
+		$AnimatedSprite.play("idle")
 	if Input.is_action_pressed("shoot") and $ShootRay.is_colliding() and can_shoot:
 		shoot()
 		can_shoot = false
@@ -64,7 +76,8 @@ func take_damage():
 	$DamageTimer.start()
 
 func shoot():
-	$ShootRay.get_collider().take_damage()
+	$ShootRay.get_collider().take_damage(1)
+
 
 func _on_DashTimer_timeout():
 	can_dash = true

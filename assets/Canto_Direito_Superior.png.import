@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex"
+path="res://.import/Canto_Direito_Superior.png-0b616b1832bea42add3209a5cb22b900.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy.bmp"
-dest_files=[ "res://.import/enemy.bmp-5f6530e5563af875cdf156976fc58354.stex" ]
+source_file="res://assets/Canto_Direito_Superior.png"
+dest_files=[ "res://.import/Canto_Direito_Superior.png-0b616b1832bea42add3209a5cb22b900.stex" ]
 
 [params]
 
