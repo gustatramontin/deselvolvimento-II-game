@@ -6,7 +6,7 @@ extends KinematicBody2D
 # var b = "text"
 
 var life = 100
-var speed = 15
+var speed = 25
 var velocity = Vector2(0,0)
 var can_hit = true
 onready var player = get_node("../Player")
@@ -22,13 +22,23 @@ func take_damage(amount):
 func _physics_process(delta):
 	var player_pos = player.position
 	velocity.x =  1 if player_pos.x > position.x else -1 
-	var collision = move_and_collide(velocity*speed*delta)
 	
-	if collision and can_hit:
-		collision.collider.take_damage()
-		$HitTimer.start()
-		can_hit = false
-		
+	velocity.y += 1
+	
+	move_and_slide(velocity*speed)
+	$AnimatedSprite.flip_h = true if velocity.x > 0 else false
+	
+
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision and can_hit:
+			if collision.collider.name == "Player":
+				collision.collider.take_damage()
+				$HitTimer.start()
+				can_hit = false
+			
+
+	
 	$LifeBar.value = life
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
