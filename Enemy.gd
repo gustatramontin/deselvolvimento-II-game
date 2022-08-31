@@ -19,6 +19,11 @@ func take_damage(amount):
 	life -= amount
 	if life <= 0:
 		queue_free()
+func deal_damage(player):
+	player.take_damage()
+	$HitTimer.start()
+	can_hit = false
+	
 func _physics_process(delta):
 	var player_pos = player.position
 	velocity.x =  1 if player_pos.x > position.x else -1 
@@ -28,15 +33,15 @@ func _physics_process(delta):
 	move_and_slide(velocity*speed)
 	$AnimatedSprite.flip_h = true if velocity.x > 0 else false
 	
-
+	# collision to player
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
+		print(collision.collider.name)
 		if collision and can_hit:
 			if collision.collider.name == "Player":
-				collision.collider.take_damage()
-				$HitTimer.start()
-				can_hit = false
-			
+				print("collidison")
+				deal_damage(collision.collider)
+
 
 	
 	$LifeBar.value = life
