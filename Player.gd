@@ -17,7 +17,6 @@ func acelleration(begin_speed, final_speed, frames):
 
 func _physics_process(delta):
 	
-	PlayerData.velocity.x = clamp(PlayerData.velocity.x,-PlayerData.speed, PlayerData.speed)
 	if Input.is_action_pressed("move_right"):
 		PlayerData.velocity.x += PlayerData.acceleration
 		PlayerData.direction.x = 1		
@@ -27,14 +26,17 @@ func _physics_process(delta):
 	else:
 		PlayerData.velocity.x = lerp(PlayerData.velocity.x, 0, 0.2)
 	
+	PlayerData.velocity.x = clamp(PlayerData.velocity.x,-PlayerData.stats.speed, PlayerData.stats.speed)
+	
 	$AnimatedSprite.flip_h = true if PlayerData.direction.x == -1 else false
 	$ShootRay.cast_to.x = abs($ShootRay.cast_to.x) * PlayerData.direction.x
 	PlayerData.velocity.y += PlayerData.gravity
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		PlayerData.velocity.y = -PlayerData.jump_force
-		print("jump")
-		
+	if Input.is_action_just_released("jump") and PlayerData.velocity.y < 0:
+		PlayerData.velocity.y *= 0.5
+
 	if Input.is_action_just_pressed("dash") and PlayerData.can_dash:
 		PlayerData.dash = true
 		PlayerData.can_dash = false 
@@ -47,7 +49,7 @@ func _physics_process(delta):
 	if !PlayerData.hitted:
 		PlayerData.velocity = move_and_slide(PlayerData.velocity, Vector2.UP)
 	
-	PlayerData.velocity.x = lerp(PlayerData.velocity.x, 0 , 0.2)
+	#PlayerData.velocity.x = lerp(PlayerData.velocity.x, 0 , 0.2)
 	
 	if Input.is_action_pressed("shoot"):
 		$AnimatedSprite.play("shoot")

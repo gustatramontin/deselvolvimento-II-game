@@ -1,11 +1,10 @@
 extends Node
 class_name PlayerDataClass
 
-export var speed = 100
-export var acceleration = 10
-export var gravity = 300
+export var acceleration = 15
+var gravity = 20
 var velocity = Vector2()
-export var jump_force = 1
+var jump_force = gravity * 20
 var hitted = false
 var dash = false
 var can_dash = true
@@ -14,14 +13,13 @@ var direction = Vector2(1,1)
 
 var stats = {
 	"life": 100,
-	"speed": 100,
+	"speed": 200,
 	"armor": 100,
 	"strength": 10
 }
 
 func take_damage(amount):
 	stats.life -= 10
-	print("player hitted")
 	if (stats.life <= 10):
 		get_tree().quit()
 		

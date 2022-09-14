@@ -15,7 +15,6 @@ func _ready():
 	pass # Replace with function body.
 
 func take_damage(amount):
-	print("hit")
 	life -= amount
 	if life <= 0:
 		queue_free()
@@ -36,10 +35,8 @@ func _physics_process(delta):
 	# collision to player
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		print(collision.collider.name)
 		if collision and can_hit:
 			if collision.collider.name == "Player":
-				print("collidison")
 				deal_damage(collision.collider)
 
 
